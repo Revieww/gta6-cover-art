@@ -1,8 +1,8 @@
-// Fixed scenes for screenshots: ?shot=editor shows the editor with a sample
-// photo loaded; ?shot=cover shows the finished cover alone, filling the
-// viewport. Query params: photo (pier|boulevard), caption, sub, grade
-// (sunset|neon|midnight), size (square|portrait|wide).
-// window.__shotReady is set once the scene is painted.
+// Fixed scenes for screenshots. `?shot=editor` shows the editor with a
+// sample photo loaded; `?shot=cover` shows the finished cover alone,
+// filling the viewport. Query params: photo (pier|boulevard), caption, sub,
+// grade (sunset|neon|midnight), size (square|portrait|wide).
+// window.__shotReady is set once the scene has been painted.
 import { COVER_SIZES, COVER_GRADES } from './cover.js';
 
 export async function runShot(shot, query, state, loadImage, redraw) {
