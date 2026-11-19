@@ -157,13 +157,16 @@ function drawPalm(ctx, x, y, s, lean, colour) {
 function drawSunAndPalms(ctx, heroPoints, grade, w) {
   const box = panelBounds(heroPoints);
   clippedTo(ctx, heroPoints, () => {
-    const sunR = Math.min(box.w, box.h) * 0.26;
-    const sunX = box.x + box.w * 0.66;
-    const sunY = box.y + box.h * 0.30;
+    // A small sun tucked into the hero's top corner, with a soft glowing
+    // rim so it reads as sky, never as a blob over the subject's face.
+    const sunR = Math.min(box.w, box.h) * 0.14;
+    const sunX = box.x + box.w * 0.76;
+    const sunY = box.y + box.h * 0.13;
     const sun = ctx.createRadialGradient(sunX, sunY, sunR * 0.1, sunX, sunY, sunR);
     sun.addColorStop(0, grade.sun[0]);
     sun.addColorStop(0.55, grade.sun[1]);
-    sun.addColorStop(1, grade.sun[2]);
+    sun.addColorStop(0.85, grade.sun[2]);
+    sun.addColorStop(1, grade.sun[2] + '00');
     ctx.fillStyle = sun;
     ctx.beginPath();
     ctx.arc(sunX, sunY, sunR, 0, Math.PI * 2);
@@ -193,7 +196,7 @@ function drawSeamsAndFrame(ctx, panels, w, h) {
     ctx.closePath();
     ctx.stroke();
   }
-  // Diagonal accent stripe: a hot pink-to-orange slash across the cover.
+  // Diagonal accent stripe: a thin hot pink-to-orange slash across the cover.
   const stripe = ctx.createLinearGradient(0, h * 0.75, w, h * 0.25);
   stripe.addColorStop(0, '#ff2e88');
   stripe.addColorStop(0.5, '#ff7a3c');
@@ -203,10 +206,10 @@ function drawSeamsAndFrame(ctx, panels, w, h) {
   ctx.beginPath();
   ctx.moveTo(0, h * 0.86);
   ctx.lineTo(w, h * 0.30);
-  ctx.lineTo(w, h * 0.30 + h * 0.012);
-  ctx.lineTo(0, h * 0.86 + h * 0.012);
+  ctx.lineTo(w, h * 0.30 + h * 0.008);
+  ctx.lineTo(0, h * 0.86 + h * 0.008);
   ctx.closePath();
-  ctx.globalAlpha = 0.9;
+  ctx.globalAlpha = 0.6;
   ctx.fill();
   ctx.restore();
   ctx.strokeStyle = '#ffffff';

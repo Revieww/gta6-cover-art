@@ -41,9 +41,14 @@ writeFileSync(
 );
 
 // A short human-readable summary of what was handed in, so a bad run is
-// obvious at a glance: the app's file count and the screenshots present.
+// obvious at a glance: the app's file count, the screenshots present, and
+// the dossier's size against its 1.5 MiB cap.
 const appFiles = readdirSync(join(out, 'app'), { recursive: true }).length;
 const shotFiles = readdirSync(join(out, 'screenshots'))
   .filter((name) => statSync(join(out, 'screenshots', name)).isFile())
   .sort();
-console.log(`Vice Nights handed in: ${appFiles} app entries, screenshots: ${shotFiles.join(', ') || 'none'}`);
+const dossierBytes = statSync(join(out, 'dossier.json')).size;
+console.log(`Vice Nights handed in: ${appFiles} app entries, screenshots: ${shotFiles.join(', ') || 'none'}, dossier ${dossierBytes} bytes`);
+if (shotFiles.length < 3 || shotFiles.length > 4) {
+  console.warn(`Warning: expected 3 or 4 screenshots, found ${shotFiles.length}.`);
+}
